@@ -80,6 +80,39 @@ Untuk mencapai goals tersebut, ada 2 pendekatan yang akan digunakan yaitu:
   - subsample: Mengontrol proporsi data yang digunakan untuk membangun setiap pohon keputusan. Subsampling dapat membantu mengurangi overfitting.
   - n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
 
+## Data Understanding
+Data yang akan digunakan pada proyek kali ini adalah [Cryptocurrency Historical Prices](https://www.kaggle.com/datasets/sudalairajkumar/cryptocurrencypricehistory) yang diunduh dari kaggle dan [Historical Bitcoin Price](https://coinmarketcap.com/currencies/bitcoin/historical-data/) dari coinmarketcap. Untuk memudahkan pendefinisiannya, dataset dari kaggle akan disebut sebagai dataset 1, sedangkan dataset dari coinmarketcap akan disebut sebagai dataset 2.
+
+<br>
+
+Dataset 1 berisi 2991 records dan 10 kolom yang memiliki karakteristik sebagai berikut:
+- SNo: Nomor urut atau indeks data.
+- Name: Nama aset, dalam kasus ini, "Bitcoin".
+- Symbol: Simbol ticker untuk aset.
+- Date: Tanggal data harga.
+- High: Harga tertinggi yang dicapai Bitcoin pada hari tersebut.
+- Low: Harga terendah yang dicapai Bitcoin pada hari tersebut.
+- Open: Harga pembukaan Bitcoin pada hari tersebut.
+- Close: Harga penutupan Bitcoin pada hari tersebut.
+- Volume: Volume perdagangan Bitcoin pada hari tersebut.
+- Marketcap: Kapitalisasi pasar Bitcoin pada hari tersebut, yang merupakan produk dari harga penutupan dan jumlah Bitcoin yang beredar.
+
+Kemudian, dataset 2 berisi 1200 records dan 12 kolom yang memiliki karakteristik sebagai berikut:
+- timeOpen: Menandakan waktu di mana pasar dibuka untuk perdagangan pada hari tersebut. 
+- timeClose: Menandakan waktu di mana pasar ditutup untuk perdagangan pada hari tersebut.
+- timeHigh: Menandakan waktu di mana harga tertinggi tercapai pada hari tersebut.
+- timeLow: Menandakan waktu di mana harga terendah tercapai pada hari tersebut.
+- name: Menunjukkan nama aset yang diperdagangkan, dalam hal ini Bitcoin.
+- open: Harga pembukaan Bitcoin pada hari tersebut.
+- high:Harga tertinggi yang dicapai Bitcoin pada hari tersebut.
+- low:  Harga terendah yang dicapai Bitcoin pada hari tersebut.
+- close: Harga penutupan Bitcoin pada hari tersebut.
+- volume: olume perdagangan Bitcoin pada hari tersebut.
+- marketCap: Kapitalisasi pasar Bitcoin pada hari tersebut, yang merupakan produk dari harga penutupan dan jumlah Bitcoin yang beredar.
+- timestamp: Ini adalah stempel waktu yang mencatat kapan data tersebut direkam.
+
+Untuk memahami data, selanjutnya akan dilakukan proses berikut:
+
 
 
 
