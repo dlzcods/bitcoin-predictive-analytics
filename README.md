@@ -8,14 +8,10 @@ Buku besar ini dikelola secara peer-to-peer, yang berarti terdapat banyak komput
 Setiap transaksi dianggap sebagai satu blok, dan sekumpulan blok ini saling terhubung membentuk sebuah rantai [1]. 
 Karena setiap blok menyimpan riwayat transaksi sebelumnya, blockchain menjadi sistem yang transparan dan aman untuk mengelola data transaksi secara desentralisasi.
 
-<br>
-
 Sejak diperkenalkan pada tahun 2009, Bitcoin telah menjadi salah satu mata uang digital yang paling dikenal dan diterima secara global. 
 Daya tarik utama Bitcoin sebagai instrumen investasi terletak pada sifat desentralisasinya, yang mengurangi ketergantungan terhadap lembaga keuangan konvensional dan pemerintah. 
 Selain itu, jumlah Bitcoin yang terbatas, yaitu hanya 21 juta sehingga menambahkan unsur kelangkaan yang dapat meningkatkan nilai pasar [1]. 
 Kehadirannya sebagai “emas digital” telah menarik minat tinggi di kalangan investor, baik individu maupun institusi, yang melihatnya sebagai aset perlindungan terhadap inflasi dan ketidakpastian ekonomi.
-
-<br>
 
 Namun, harga Bitcoin terkenal sangat fluktuatif, dengan perubahan harga yang tajam dalam waktu singkat. 
 Sebagai contoh, harga Bitcoin melonjak dari $5.033,42 pada 16 Maret 2020 menjadi $63.564,48 pada 13 April 2021, sebuah peningkatan sebesar 1.062,85% dalam waktu hanya 13 bulan. 
@@ -23,20 +19,14 @@ Setelah harga Bitcoin mencapai puncaknya pada pertengahan April, harga tersebut 
 Fluktuasi harga ini dipengaruhi oleh berbagai faktor, termasuk sentimen pasar, kebijakan regulasi pemerintah, serta berita atau peristiwa yang muncul terhadap Bitcoin [2]. 
 Ketidakpastian ini menjadi tantangan bagi investor dalam merumuskan strategi investasi yang efektif.
 
-<br>
-
 Oleh karena itu, penting bagi investor untuk memiliki alat yang dapat membantu mereka memahami dan memprediksi pergerakan harga Bitcoin di masa mendatang, 
 salah satunya yaitu penerapan teknik machine learning [2]. Penerapan teknik machine learning dalam prediksi harga Bitcoin memungkinkan analisis pola kompleks dari berbagai variabel historis. 
 Teknik ini dapat mengidentifikasi hubungan non-linear antara variabel dan menghasilkan prediksi yang lebih akurat dibandingkan metode tradisional
-
-<br>
 
 Dengan memanfaatkan analisis fundamental cryptocurrency, termasuk kapitalisasi pasar, yang mencerminkan nilai total Bitcoin yang beredar, volume transaksi yang menunjukkan likuiditas, 
 serta pergerakan harga historis [3], faktor faktor ini dapat memberikan wawasan yang mendalam kepada investor tentang kekuatan dan potensi pertumbuhan Bitcoin di masa depan. 
 Meskipun demikian, model prediksi dalam proyek ini hanya didasarkan pada data historis yang mencakup harga pembukaan, harga penutupan, harga tertinggi, harga terendah, volume transaksi, 
 dan kapitalisasi pasar, sehingga tidak mencakup faktor eksternal lain yang juga mempengaruhi harga, seperti sentimen pasar atau regulasi.
-
-<br>
 
 Melalui analisis dan model prediksi yang akurat, investor dapat memperkirakan pergerakan harga Bitcoin dalam jangka waktu tertentu, 
 sehingga dapat mengurangi risiko investasi dan memaksimalkan peluang keuntungan. Oleh karena itu, 
@@ -45,11 +35,7 @@ pengembangan model prediksi harga Bitcoin sangat penting bagi investor dalam men
 ## Business Understanding
 Investor cryptocurrency, khususnya Bitcoin, adalah individu yang berusaha mendapatkan keuntungan dari fluktuasi harga aset digital. Dalam dunia investasi Bitcoin, kemampuan untuk menganalisis data historis seperti harga pembukaan, harga penutupan, harga tertinggi, harga terendah, volume transaksi, dan kapitalisasi pasar merupakan keahlian penting. Melalui analisis ini, investor berupaya memprediksi pergerakan harga Bitcoin di masa depan berdasarkan pola historis yang ada.
 
-<br>
-
 Bitcoin terkenal dengan volatilitasnya yang tinggi, di mana harga dapat berfluktuasi secara signifikan dalam waktu singkat. Prediksi yang terlalu optimis dapat menyebabkan kerugian besar, sementara sikap terlalu konservatif bisa mengakibatkan kehilangan peluang investasi yang berpotensi menguntungkan. Oleh karena itu, diperlukan sebuah metode yang mampu mengelola ketidakpastian ini dengan lebih akurat.
-
-<br>
 
 Salah satu solusi yang dapat diterapkan adalah dengan memanfaatkan teknik machine learning. Dengan memodelkan data historis yang mencakup berbagai faktor seperti harga dan volume transaksi, teknik ini dapat membantu investor mendapatkan prediksi yang lebih akurat mengenai pergerakan harga Bitcoin. Prediksi yang akurat tidak hanya membantu investor meminimalkan risiko kerugian, tetapi juga memaksimalkan peluang keuntungan di pasar yang dinamis dan sulit diprediksi ini.
 
@@ -81,11 +67,12 @@ Untuk mencapai goals tersebut, ada 2 pendekatan yang akan digunakan yaitu:
   - n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
 
 ## Data Understanding
-Data yang akan digunakan pada proyek kali ini adalah [Cryptocurrency Historical Prices](https://www.kaggle.com/datasets/sudalairajkumar/cryptocurrencypricehistory) yang diunduh dari kaggle dan [Historical Bitcoin Price](https://coinmarketcap.com/currencies/bitcoin/historical-data/) dari coinmarketcap. Untuk memudahkan pendefinisiannya, dataset dari kaggle akan disebut sebagai dataset 1, sedangkan dataset dari coinmarketcap akan disebut sebagai dataset 2.
+Data yang akan digunakan pada proyek kali ini adalah [Cryptocurrency Historical Prices](https://www.kaggle.com/datasets/sudalairajkumar/cryptocurrencypricehistory) yang diunduh dari kaggle dan [Historical Bitcoin Price](https://coinmarketcap.com/currencies/bitcoin/historical-data/) dari coinmarketcap. Untuk memudahkan pendefinisiannya, dataset dari kaggle akan disebut sebagai dataset pertama, sedangkan dataset dari coinmarketcap akan disebut sebagai dataset kedua.
 
-<br>
+Dataset pertama memiliki rentang waktu dari 29 April 2013 sampai 7 Juli 2021, sedangkan dataset kedua memiliki rentang waktu dari 8 Juli 2021 sampai 19 Oktober 2024.
+Nantinya kedua dataset tersebut akan digabungkan, dengan menggabungkan kedua dataset, model dapat belajar dari berbagai kondisi pasar dan menangkap perubahan pola yang terjadi seiring waktu. Hal ini memungkinkan model untuk memberikan prediksi yang lebih akurat dan adaptif terhadap dinamika pasar kripto yang kompleks.
 
-Dataset 1 berisi 2991 records dan 10 kolom yang memiliki karakteristik sebagai berikut:
+Dataset pertama berisi 2991 records dan 10 kolom yang memiliki karakteristik sebagai berikut:
 - SNo: Nomor urut atau indeks data.
 - Name: Nama aset, dalam kasus ini, "Bitcoin".
 - Symbol: Simbol ticker untuk aset.
@@ -97,7 +84,7 @@ Dataset 1 berisi 2991 records dan 10 kolom yang memiliki karakteristik sebagai b
 - Volume: Volume perdagangan Bitcoin pada hari tersebut.
 - Marketcap: Kapitalisasi pasar Bitcoin pada hari tersebut, yang merupakan produk dari harga penutupan dan jumlah Bitcoin yang beredar.
 
-Kemudian, dataset 2 berisi 1200 records dan 12 kolom yang memiliki karakteristik sebagai berikut:
+Kemudian, dataset kedua berisi 1200 records dan 12 kolom yang memiliki karakteristik sebagai berikut:
 - timeOpen: Menandakan waktu di mana pasar dibuka untuk perdagangan pada hari tersebut. 
 - timeClose: Menandakan waktu di mana pasar ditutup untuk perdagangan pada hari tersebut.
 - timeHigh: Menandakan waktu di mana harga tertinggi tercapai pada hari tersebut.
@@ -112,6 +99,82 @@ Kemudian, dataset 2 berisi 1200 records dan 12 kolom yang memiliki karakteristik
 - timestamp: Ini adalah stempel waktu yang mencatat kapan data tersebut direkam.
 
 Untuk memahami data, selanjutnya akan dilakukan proses berikut:
+### 1. Data Loading
+Supaya isi dataset lebih mudah dipahami, kita perlu melakukan proses loading data terlebih dahulu dengan import library pandas untuk dapat membaca file datanya.
+### 2. Exploratory Data Analysis
+#### Informasi Dataset
+Mengecek informasi pada dataset dengan fungsi info() berikut.
+<br>
+
+<!-- ![image](https://github.com/user-attachments/assets/03f174aa-ab23-40d8-84cb-ae3f14faac6c) -->
+
+<img src="https://github.com/user-attachments/assets/03f174aa-ab23-40d8-84cb-ae3f14faac6c" alt="image" width="300"/>
+
+<br>
+
+Berdasarkan informasi di atas dataset pertama memiliki beberapa kriteria antara lain:
+- 6 Kolom dengan tipe float64 yaitu High, Low, Open, Close, Volume, dan Marketcap
+- 1 Kolom dengan tipe int64 yaitu SNo
+- 3 Kolom dengan tipe object yaitu Name, Symbol, dan Date
+
+<br>
+
+Kemudian untuk dataset kedua juga menggunakan fungsi yang sama.
+<br>
+
+<!-- ![image](https://github.com/user-attachments/assets/ce85ffc1-4b54-46b8-8cf9-5eb3c488aacb) -->
+
+<img src="https://github.com/user-attachments/assets/ce85ffc1-4b54-46b8-8cf9-5eb3c488aacb" alt="image" width="300"/>
+<br>
+
+Berdasarkan informasi di atas dataset kedua memiliki beberapa kriteria antara lain:
+- 10 Kolom dengan tipe object yaitu timeOpen, timeClose, timeHigh, timeLow, open, high, low, close, volume, marketCap
+- 1 Kolom dengan tipe datetime[ns, UTC] yaitu timestamp
+- 1 Kolom dengan tipe int64 yaitu name
+
+#### Cek Missing Value
+Jika data terdiri dari ratusan bahkan ribuan baris tentu akan susah dalam menemukan nilai field yang kosong. Oleh karena itu, Pandas memungkinkan kita dapat menemukan missing value secara cepat dengan fungsi isna() dan sum().
+<br>
+
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/8efec933-e14f-431e-aee8-0d8c120727d9" alt="dataset 1" width="100"/>
+  <img src="https://github.com/user-attachments/assets/dfcaa49b-937a-4485-aaca-3bf6caa8a8e9" alt="dataset 2" width="100"/>
+</p>
+
+<!-- ![image](https://github.com/user-attachments/assets/8efec933-e14f-431e-aee8-0d8c120727d9) -->
+<!-- ![image](https://github.com/user-attachments/assets/dfcaa49b-937a-4485-aaca-3bf6caa8a8e9) -->
+
+Pada dataset pertama dan kedua tidak ditemukan adanya missing value, sehingga bisa dilanjutkan ke proses berikutnya.
+
+#### Merge Dataset
+Sebelum melakukan visualisasi dan pengembangan model, langkah awal yang krusial adalah menggabungkan kedua dataset yang ada. Tujuannya adalah untuk mendapatkan satu dataset yang komprehensif, berisi data yang relevan, dan siap untuk dianalisis lebih lanjut.
+
+Langkah-langkah yang Dilakukan:
+##### 1. Seleksi Kolom:
+- Pilih kolom date, high, low, open, close, volume, dan marketcap dari kedua dataset.
+- Perubahan: Untuk dataset 2, ekstrak tanggal dari kolom timestamp dan simpan ke dalam kolom baru yang bernama date.
+
+##### 2. Konversi Tipe Data:
+- Pastikan tipe data pada kolom yang sama di kedua dataset konsisten.
+- Konversi tipe data kolom date pada dataset kedua menjadi format tanggal yang sesuai.
+
+##### 3. Penggabungan Dataset:
+- Menggunakan metode concat untuk menggabungkan kedua dataset secara vertikal untuk menambahkan baris data dari dataset kedua ke akhir dataset pertama.
+
+Dari ketiga langkah tadi, didapatkan dataset baru dari hasil penggabungan dataset pertama dan kedua. 
+Untuk selanjutnya hasil penggabungan ini akan disebut sebagai dataset final.
+
+<!-- ![image](https://github.com/user-attachments/assets/a1b03191-0ae4-4fe7-8449-6ea8031f36f7) -->
+
+<img src="https://github.com/user-attachments/assets/a1b03191-0ae4-4fe7-8449-6ea8031f36f7" alt="image" width="570"/>
+
+
+
+
+
+
+
+
 
 
 
