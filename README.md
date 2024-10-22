@@ -340,7 +340,47 @@ Membagi dataset menjadi data latih (train) dan data uji (test) merupakan hal yan
 <img src="https://github.com/user-attachments/assets/ffb5e6c8-e3e0-4184-a618-c18ea520ba11" alt="image" width="260"/>
 
 ## Modeling
-Pada tahap ini menggunakan algoritma machine learning XGBoost dengan menerapkan hyperparameter tuning untuk mencari nilai learning rate, max_depth, subsample, dan n_estimators terbaik. Model yang sudah dilatih akan dievaluasi dengan metrik MAE dan MSE.
+Pada tahap ini menggunakan algoritma machine learning XGBoost dengan menerapkan hyperparameter tuning untuk mencari nilai learning rate, max_depth, subsample, dan n_estimators terbaik. Model yang sudah dilatih akan dievaluasi dengan metrik MAE dan MSE, penjelasan lebih detail terkait metrik evaluasi akan dibahas saat evaluasi model.
+
+### 1. Konsep Dasar Algoritma XGBoost
+XGBoost merupakan algoritma ensemble yang sangat cocok untuk tugas prediksi, terutama pada data yang kompleks dan nonlinear seperti data harga Bitcoin. XGBoost membangun banyak pohon keputusan (decision tree) secara berurutan, di mana setiap pohon belajar dari kesalahan pohon sebelumnya. Dengan adanya regularisasi, algoritma ini tidak hanya berusaha untuk mengurangi kesalahan prediksi, tetapi juga untuk menghindari overfitting. Struktur ensemble ini memungkinkan XGBoost menangkap pola yang kompleks dalam data dan menghasilkan prediksi yang lebih akurat.
+
+### 2. Melatih Model Baseline
+Pada tahap ini, model XGBoost dilatih tanpa melakukan penyesuaian parameter, menggunakan konfigurasi default yang disediakan oleh library. Tujuan dari langkah ini adalah untuk mendapatkan baseline performance yang akan menjadi acuan bagi evaluasi model selanjutnya. Model ini dilatih menggunakan fitur-fitur yang telah disiapkan sebelumnya, termasuk nilai-nilai high, low, open, volume, dan market cap yang telah dimundurkan 5 hari.
+
+Dari pelatihan model baseline, didapatka hasil sebagai berikut:
+<!-- ![image](https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc) -->
+
+<img src="https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc" alt="image" width="300"/>
+
+
+Dari informasi di atas, didapatkan Mean Squared Error (MSE) sebesar 6.978.760.79 dan Mean Absolute Error (MAE) sebesar 1.242.54, yang menggambarkan tingkat kesalahan prediksi dalam model ini. Dengan MAE sebesar 1.242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1.242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
+
+Namun, MSE yang lebih tinggi menunjukkan adanya outlier atau prediksi dengan kesalahan yang lebih besar. Untuk meningkatkan akurasi model dan mengurangi kesalahan prediksi, langkah selanjutnya adalah melakukan hyperparameter tuning. 
+
+### 3. Hyperparameter Tuning
+Hyperparameter tuning adalah sebuah proses untuk melakukan optimalisasi parameter pada sebuah model. Dalam KNN, terdapat beberapa parameter yang menjadi pembangun model.
+Untuk proyek ini Parameter yang di gunakan ada 4 yaitu:
+- learning_rate: Mengontrol tingkat di mana model belajar dari setiap iterasi. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat memperlambat konvergensi.
+- max_depth: Mengontrol kedalaman maksimum pohon keputusan. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat menghambat kemampuan model untuk menangkap pola yang kompleks.
+- subsample: Mengontrol proporsi data yang digunakan untuk membangun setiap pohon keputusan. Subsampling dapat membantu mengurangi overfitting.
+- n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
+
+Selanjutnya ditentukkan kandidat untuk memilih parameter terbaik dengan ketentuan berikut:
+- learning_rate: 0.01, 0.1, 0.2
+- max_depth: 3, 5, 7
+- n_estimators: 100, 200, 300
+- subsample: 0.8, 1.0
+
+Kemudian dengan menggunakan GridSearchCV Scikit-Learn untuk mencari parameter yang dilakukan secara brute force dan melaporkan mana parameter yang memiliki akurasi paling baik. Setelah dilakukan proses pencarian parameter yang optimal menggunakan GridSearch diperoleh parameter nilai learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0 yang akan digunakan untuk melakukan fit model yang diperoleh hasil berikut :
+<!-- ![image](https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2) -->
+
+<img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
+
+Nilai akurasi model meningkat setelah diterapkan hyperparameter tuning dengan perolehan nilai Mean Squared Error: 6.450.337.21 dan Mean Absolute Error: 1.222.15. Tentunya performa model lebih baik jika dibandingkan dengan akurasi sebelum dilakukan tuning.
+
+## Evaluation
+Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah Mean Absolute Error (MAE) dan Mean Square Error (MSE).
 
 MAE dan MSE adalah dua metrik yang umum digunakan untuk mengukur kinerja model regresi, termasuk model XGBoost. Keduanya mengukur seberapa jauh prediksi model dari nilai sebenarnya, namun dengan cara yang sedikit berbeda.
 
@@ -387,48 +427,6 @@ MAE dan MSE adalah dua metrik yang umum digunakan untuk mengukur kinerja model r
   \end{aligned}
   ```
 
-### 1. Konsep Dasar Algoritma XGBoost
-XGBoost merupakan algoritma ensemble yang sangat cocok untuk tugas prediksi, terutama pada data yang kompleks dan nonlinear seperti data harga Bitcoin. XGBoost membangun banyak pohon keputusan (decision tree) secara berurutan, di mana setiap pohon belajar dari kesalahan pohon sebelumnya. Dengan adanya regularisasi, algoritma ini tidak hanya berusaha untuk mengurangi kesalahan prediksi, tetapi juga untuk menghindari overfitting. Struktur ensemble ini memungkinkan XGBoost menangkap pola yang kompleks dalam data dan menghasilkan prediksi yang lebih akurat.
-
-### 2. Melatih Model Baseline
-Pada tahap ini, model XGBoost dilatih tanpa melakukan penyesuaian parameter, menggunakan konfigurasi default yang disediakan oleh library. Tujuan dari langkah ini adalah untuk mendapatkan baseline performance yang akan menjadi acuan bagi evaluasi model selanjutnya. Model ini dilatih menggunakan fitur-fitur yang telah disiapkan sebelumnya, termasuk nilai-nilai high, low, open, volume, dan market cap yang telah dimundurkan 5 hari.
-
-Dari pelatihan model baseline, didapatka hasil sebagai berikut:
-<!-- ![image](https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc) -->
-
-<img src="https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc" alt="image" width="300"/>
-
-
-Dari informasi di atas, didapatkan Mean Squared Error (MSE) sebesar 6.978.760.79 dan Mean Absolute Error (MAE) sebesar 1.242.54, yang menggambarkan tingkat kesalahan prediksi dalam model ini. MSE mengukur rata-rata kuadrat dari kesalahan prediksi, sehingga lebih sensitif terhadap outlier. Sementara itu, MAE memberikan rata-rata kesalahan absolut antara nilai prediksi dan nilai sebenarnya, yang lebih mudah diinterpretasikan karena menggunakan satuan yang sama dengan target, yaitu harga BTC.
-
-Dengan MAE sebesar 1.242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1,242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
-
-Namun, MSE yang lebih tinggi menunjukkan adanya outlier atau prediksi dengan kesalahan yang lebih besar. Untuk meningkatkan akurasi model dan mengurangi kesalahan prediksi, langkah selanjutnya adalah melakukan hyperparameter tuning. 
-
-### 3. Hyperparameter Tuning
-Hyperparameter tuning adalah sebuah proses untuk melakukan optimalisasi parameter pada sebuah model. Dalam KNN, terdapat beberapa parameter yang menjadi pembangun model.
-Untuk proyek ini Parameter yang di gunakan ada 4 yaitu:
-- learning_rate: Mengontrol tingkat di mana model belajar dari setiap iterasi. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat memperlambat konvergensi.
-- max_depth: Mengontrol kedalaman maksimum pohon keputusan. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat menghambat kemampuan model untuk menangkap pola yang kompleks.
-- subsample: Mengontrol proporsi data yang digunakan untuk membangun setiap pohon keputusan. Subsampling dapat membantu mengurangi overfitting.
-- n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
-
-Selanjutnya ditentukkan kandidat untuk memilih parameter terbaik dengan ketentuan berikut:
-- learning_rate: 0.01, 0.1, 0.2
-- max_depth: 3, 5, 7
-- n_estimators: 100, 200, 300
-- subsample: 0.8, 1.0
-
-Kemudian dengan menggunakan GridSearchCV Scikit-Learn untuk mencari parameter yang dilakukan secara brute force dan melaporkan mana parameter yang memiliki akurasi paling baik. Setelah dilakukan proses pencarian parameter yang optimal menggunakan GridSearch diperoleh parameter nilai learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0 yang akan digunakan untuk melakukan fit model yang diperoleh hasil berikut :
-<!-- ![image](https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2) -->
-
-<img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
-
-Nilai akurasi model meningkat setelah diterapkan hyperparameter tuning dengan perolehan nilai Mean Squared Error: 6.450.337.21 dan Mean Absolute Error: 1.222.15. Tentunya performa model lebih baik jika dibandingkan dengan akurasi sebelum dilakukan tuning.
-
-## Evaluation
-Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah Mean Absolute Error (MAE) dan Mean Square Error (MSE), di mana idealnya nilai MAE dan MSE yang rendah akan menunjukkan bahwa model mampu memprediksi harga Bitcoin dengan akurasi yang tinggi. MAE yang mendekati nol menunjukkan bahwa rata-rata kesalahan prediksi berada pada tingkat yang dapat diterima, sedangkan MSE yang rendah menandakan bahwa kesalahan kuadrat dari prediksi juga minimal, sehingga mengurangi pengaruh outlier yang mungkin ada dalam data.
-
 ### Perbandingan Performa Setelah dan Sebelum Hyperparameter Tuning
 <img src="https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc" alt="image" width="300"/>
 
@@ -436,7 +434,7 @@ Pada tahap awal, model dilatih tanpa melakukan hyperparameter tuning, menghasilk
 
 <img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
 
-Setelah melakukan tuning, model mengalami peningkatan performa dengan MSE menurun menjadi 6.450.337,21 dan MAE turun menjadi 1.222.15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
+Setelah melakukan tuning dan diperoleh parameter terbaik dengan nilai learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0, model mengalami peningkatan performa dengan MSE menurun menjadi 6.450.337,21 dan MAE turun menjadi 1.222.15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
 
 MSE yang lebih rendah mengindikasikan bahwa rata-rata kesalahan kuadrat dari prediksi model telah menurun, mengurangi dampak outlier. Hal ini penting dalam prediksi harga BTC karena mengurangi kesalahan prediksi yang ekstrem, yang sebelumnya berdampak signifikan pada hasil keseluruhan.
 
@@ -466,9 +464,9 @@ Prediksi kembali menunjukkan tren pemulihan pada tanggal 23 Oktober, dengan esti
 Secara keseluruhan, hasil prediksi ini memberikan insight penting bagi investor dan trader untuk merencanakan strategi perdagangan mereka berdasarkan proyeksi harga Bitcoin dalam jangka pendek.
 
 ## References
-1. Klabbers, S. (2017). Bitcoin as an investment asset: The added value of bitcoin in a global market portfolio. Ubn.ru.nl. [online] doi:http://theses.ubn.ru.nl/handle/123456789/4434.
-2. Hung, C., Jacky Filbert Wijaya, Victor, V., Irpan Adiputra Pardosi and Frans Mikael Sinaga (2023). Prediksi Fluktuasi Harga Bitcoin Dengan Menggunakan Random Forest Classifier. Jurnal Sifo Mikroskil, 24(2), pp.95–108. doi:https://doi.org/10.55601/jsm.v24i2.1024.
-3. Sihombing, S., Rizky Nasution, M. and Sadalia, I. (2021). Analisis Fundamental Cryptocurrency terhadap Fluktuasi Harga: Studi Kasus Tahun 2019-2020. Jurnal Akuntansi, Keuangan, dan Manajemen, 2(3), pp.213–224. doi:https://doi.org/10.35912/jakman.v2i3.373.
-4. Shu, M., Song, R. and Zhu, W. (2021). The 2021 Bitcoin Bubbles and Crashes—Detection and Classification. Stats, 4(4), pp.950–970. doi:https://doi.org/10.3390/stats4040056.
+1. Klabbers S. Bitcoin as an investment asset: The added value of bitcoin in a global market portfolio. Ubnrunl [Internet]. 2017; Available from: https://theses.ubn.ru.nl/handle/123456789/4434
+2. Hung C, Jacky Filbert Wijaya, Victor V, Irpan Adiputra Pardosi, Frans Mikael Sinaga. Prediksi Fluktuasi Harga Bitcoin Dengan Menggunakan Random Forest Classifier. Jurnal Sifo Mikroskil. 2023 Oct 29;24(2):95–108.
+3. Sihombing S, Rizky Nasution M, Sadalia I. Analisis Fundamental Cryptocurrency terhadap Fluktuasi Harga: Studi Kasus Tahun 2019-2020. Jurnal Akuntansi, Keuangan, dan Manajemen. 2021 Jun 20;2(3):213–24.
+4. Shu M, Song R, Zhu W. The 2021 Bitcoin Bubbles and Crashes—Detection and Classification. Stats. 2021 Nov 21;4(4):950–70.
 
 
