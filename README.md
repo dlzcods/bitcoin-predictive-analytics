@@ -5,26 +5,26 @@ Bitcoin adalah mata uang digital kriptografi yang beroperasi secara terdesentral
 Identitas penciptanya tidak diketahui secara pasti, meskipun Satoshi Nakamoto sering disebut sebagai salah satu pengembangnya. 
 Jaringan Bitcoin memanfaatkan teknologi yang dikenal dengan sebutan blockchain. Blockchain berfungsi sebagai buku besar digital yang mencatat semua transaksi yang telah terjadi. 
 Buku besar ini dikelola secara peer-to-peer, yang berarti terdapat banyak komputer atau node yang terhubung dan berfungsi untuk memverifikasi setiap transaksi baru. 
-Setiap transaksi dianggap sebagai satu blok, dan sekumpulan blok ini saling terhubung membentuk sebuah rantai [1]. 
+Setiap transaksi dianggap sebagai satu blok, dan sekumpulan blok ini saling terhubung membentuk sebuah rantai [[1](http://theses.ubn.ru.nl/handle/123456789/4434)]. 
 Karena setiap blok menyimpan riwayat transaksi sebelumnya, blockchain menjadi sistem yang transparan dan aman untuk mengelola data transaksi secara desentralisasi.
 
 Sejak diperkenalkan pada tahun 2009, Bitcoin telah menjadi salah satu mata uang digital yang paling dikenal dan diterima secara global. 
 Daya tarik utama Bitcoin sebagai instrumen investasi terletak pada sifat desentralisasinya, yang mengurangi ketergantungan terhadap lembaga keuangan konvensional dan pemerintah. 
-Selain itu, jumlah Bitcoin yang terbatas, yaitu hanya 21 juta sehingga menambahkan unsur kelangkaan yang dapat meningkatkan nilai pasar [1]. 
+Selain itu, jumlah Bitcoin yang terbatas, yaitu hanya 21 juta sehingga menambahkan unsur kelangkaan yang dapat meningkatkan nilai pasar [[1](http://theses.ubn.ru.nl/handle/123456789/4434)]. 
 Kehadirannya sebagai “emas digital” telah menarik minat tinggi di kalangan investor, baik individu maupun institusi, yang melihatnya sebagai aset perlindungan terhadap inflasi dan ketidakpastian ekonomi.
 
 Namun, harga Bitcoin terkenal sangat fluktuatif, dengan perubahan harga yang tajam dalam waktu singkat. 
 Sebagai contoh, harga Bitcoin melonjak dari $5.033,42 pada 16 Maret 2020 menjadi $63.564,48 pada 13 April 2021, sebuah peningkatan sebesar 1.062,85% dalam waktu hanya 13 bulan. 
-Setelah harga Bitcoin mencapai puncaknya pada pertengahan April, harga tersebut turun tajam menjadi $31.634,16 pada 21 Juni 2021, anjlok hampir setengahnya [4]. 
-Fluktuasi harga ini dipengaruhi oleh berbagai faktor, termasuk sentimen pasar, kebijakan regulasi pemerintah, serta berita atau peristiwa yang muncul terhadap Bitcoin [2]. 
+Setelah harga Bitcoin mencapai puncaknya pada pertengahan April, harga tersebut turun tajam menjadi $31.634,16 pada 21 Juni 2021, anjlok hampir setengahnya [[4](https://www.mdpi.com/2571-905X/4/4/56)]. 
+Fluktuasi harga ini dipengaruhi oleh berbagai faktor, termasuk sentimen pasar, kebijakan regulasi pemerintah, serta berita atau peristiwa yang muncul terhadap Bitcoin [[2](https://www.researchgate.net/publication/375140020_Prediksi_Fluktuasi_Harga_Bitcoin_Dengan_Menggunakan_Random_Forest_Classifier)]. 
 Ketidakpastian ini menjadi tantangan bagi investor dalam merumuskan strategi investasi yang efektif.
 
 Oleh karena itu, penting bagi investor untuk memiliki alat yang dapat membantu mereka memahami dan memprediksi pergerakan harga Bitcoin di masa mendatang, 
-salah satunya yaitu penerapan teknik machine learning [2]. Penerapan teknik machine learning dalam prediksi harga Bitcoin memungkinkan analisis pola kompleks dari berbagai variabel historis. 
+salah satunya yaitu penerapan teknik machine learning [[2](https://www.researchgate.net/publication/375140020_Prediksi_Fluktuasi_Harga_Bitcoin_Dengan_Menggunakan_Random_Forest_Classifier)]. Penerapan teknik machine learning dalam prediksi harga Bitcoin memungkinkan analisis pola kompleks dari berbagai variabel historis. 
 Teknik ini dapat mengidentifikasi hubungan non-linear antara variabel dan menghasilkan prediksi yang lebih akurat dibandingkan metode tradisional
 
 Dengan memanfaatkan analisis fundamental cryptocurrency, termasuk kapitalisasi pasar, yang mencerminkan nilai total Bitcoin yang beredar, volume transaksi yang menunjukkan likuiditas, 
-serta pergerakan harga historis [3], faktor faktor ini dapat memberikan wawasan yang mendalam kepada investor tentang kekuatan dan potensi pertumbuhan Bitcoin di masa depan. 
+serta pergerakan harga historis [[3](https://www.academia.edu/86671160/Analisis_Fundamental_Cryptocurrency_terhadap_Fluktuasi_Harga_Studi_Kasus_Tahun_2019_2020)], faktor faktor ini dapat memberikan wawasan yang mendalam kepada investor tentang kekuatan dan potensi pertumbuhan Bitcoin di masa depan. 
 Meskipun demikian, model prediksi dalam proyek ini hanya didasarkan pada data historis yang mencakup harga pembukaan, harga penutupan, harga tertinggi, harga terendah, volume transaksi, 
 dan kapitalisasi pasar, sehingga tidak mencakup faktor eksternal lain yang juga mempengaruhi harga, seperti sentimen pasar atau regulasi.
 
@@ -464,5 +464,9 @@ Prediksi kembali menunjukkan tren pemulihan pada tanggal 23 Oktober, dengan esti
 Secara keseluruhan, hasil prediksi ini memberikan insight penting bagi investor dan trader untuk merencanakan strategi perdagangan mereka berdasarkan proyeksi harga Bitcoin dalam jangka pendek.
 
 ## References
-1. 
+1. Klabbers, S. (2017). Bitcoin as an investment asset: The added value of bitcoin in a global market portfolio. Ubn.ru.nl. [online] doi:http://theses.ubn.ru.nl/handle/123456789/4434.
+2. Hung, C., Jacky Filbert Wijaya, Victor, V., Irpan Adiputra Pardosi and Frans Mikael Sinaga (2023). Prediksi Fluktuasi Harga Bitcoin Dengan Menggunakan Random Forest Classifier. Jurnal Sifo Mikroskil, 24(2), pp.95–108. doi:https://doi.org/10.55601/jsm.v24i2.1024.
+3. Sihombing, S., Rizky Nasution, M. and Sadalia, I. (2021). Analisis Fundamental Cryptocurrency terhadap Fluktuasi Harga: Studi Kasus Tahun 2019-2020. Jurnal Akuntansi, Keuangan, dan Manajemen, 2(3), pp.213–224. doi:https://doi.org/10.35912/jakman.v2i3.373.
+4. Shu, M., Song, R. and Zhu, W. (2021). The 2021 Bitcoin Bubbles and Crashes—Detection and Classification. Stats, 4(4), pp.950–970. doi:https://doi.org/10.3390/stats4040056.
+
 
