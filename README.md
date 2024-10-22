@@ -281,3 +281,60 @@ Untuk SMA jangka pendek - menengah akan digunakan periode 50 hari, sedangkan unt
 <br>
 
 <img src="https://github.com/user-attachments/assets/ffdc757a-7579-4862-ac04-5b4f40018d34" alt="image" width="680"/>
+
+Dari visualasi di atas, didapatkan informasi sebagai berikut:
+
+SMA-200 bertindak sebagai support (level harga di mana tren penurunan cenderung berhenti) dalam jangka panjang, sedangkan SMA-50 bertindak sebagai support dan resistance (level harga di mana tren kenaikan cenderung berhenti) dalam jangka pendek dan menengah.
+
+- Golden Cross: Ketika SMA-50 memotong SMA-200 dari bawah ke atas, ini menandakan potensi dimulainya tren kenaikan harga (bullish)
+- Death Cross: Ketika SMA-50 memotong SMA-200 dari atas ke bawah, ini menandakan potensi dimulainya tren penurunan harga (bearish)
+
+#### Korelasi antara Harga Penutupan dengan Volume Transaksi
+<!-- ![image](https://github.com/user-attachments/assets/37e5907e-aa66-454f-a02e-4872012475dc) -->
+
+<img src="https://github.com/user-attachments/assets/37e5907e-aa66-454f-a02e-4872012475dc" alt="image" width="680"/>
+
+<!-- ![image](https://github.com/user-attachments/assets/718743d9-1052-4142-9697-f08963e50caa) -->
+
+<img src="https://github.com/user-attachments/assets/718743d9-1052-4142-9697-f08963e50caa" alt="image" width="680"/>
+
+<!-- ![image](https://github.com/user-attachments/assets/f6f5a108-c2d7-4bcf-b38f-81f1c019cfae) -->
+
+<img src="https://github.com/user-attachments/assets/f6f5a108-c2d7-4bcf-b38f-81f1c019cfae" alt="image" width="400"/>
+
+
+Dari kedua visualisasi di atas dan hasil perhitungan korelasi, didapatkan informasi sebagai berikut:
+- Sebaran titik-titik pada scatter plot menunjukkan adanya ketidaklinearan dalam hubungan antara harga dan volume. Titik-titik tidak membentuk pola garis lurus yang jelas, mengindikasikan faktor-faktor lain mungkin memengaruhi volume selain dari harga, seperti sentimen pasar, berita, dan regulasi, juga dapat memengaruhi volume transaksi Bitcoin dan perlu dipertimbangkan dalam analisis yang lebih komprehensif
+- Meskipun umumnya positif, korelasi antara harga penutupan dan volume transaksi tidak selalu konsisten, ditunjukkan oleh fluktuasi pada grafik korelasi bergilir. Terdapat periode di mana korelasi melemah atau bahkan berbalik arah
+- Nilai korelasi 0.67 menunjukkan hubungan yang cukup kuat, namun ketidaklinearan pada scatter plot mengingatkan kita bahwa korelasi tidak selalu berarti hubungan sebab-akibat yang sederhana
+
+Setelah tahap visualisasi selesai, kolom-kolom yang sudah tidak diperlukan seperti Volatilitas Mingguan, Volatilitas Bulanan, Volatilitas Jangka Panjang, SMA-50, SMA-200, Korelasi Bergilir (30 Hari) akan dihapus.
+
+## Data Preparation
+Pada bagian ini akan dilakukan beberapa persiapan data yaitu:
+
+### 1. Membagi Feature dan Target serta Shifting Data
+Dalam rangka memprediksi harga Bitcoin untuk 5 hari ke depan, langkah pertama adalah membagi feature dan target. Numerical feature yang digunakan terdiri dari kolom high, low, open, close, volume, dan marketcap. Target merupakan prediksi harga penutupan (closing price) Bitcoin pada hari ke-5 setelah data pada hari yang sedang diproses. Untuk menetapkan kolom target ini, digunakan teknik shifting, di mana data harga penutupan bergeser sebanyak 5 hari ke depan dengan kode berikut:
+```python
+mrg_df['Prediction_5D'] = mrg_df['close'].shift(-5)
+```
+
+Setelah itu, fitur numerik perlu dimundurkan 5 hari agar selaras dengan target prediksi. Hal ini dilakukan untuk memastikan bahwa model menggunakan data dari 5 hari sebelumnya sebagai dasar prediksi harga di masa depan. Kode yang digunakan untuk proses shifting adalah sebagai berikut:
+```python
+mrg_df['high_shifted'] = mrg_df['high'].shift(5)
+mrg_df['low_shifted'] = mrg_df['low'].shift(5)
+mrg_df['open_shifted'] = mrg_df['open'].shift(5)
+mrg_df['volume_shifted'] = mrg_df['volume'].shift(5)
+mrg_df['marketcap_shifted'] = mrg_df['marketcap'].shift(5)
+```
+
+Pemunduran fitur ini penting untuk mencegah kebocoran data, di mana model dapat "melihat" informasi dari masa depan yang seharusnya belum tersedia. Pendekatan ini sesuai dengan prinsip dalam analisis time series, di mana variabel input (fitur) harus mencerminkan periode waktu sebelum variabel target. Setelah dilakukan pemunduran data dan menghapus nilai null, kini terdapat total 4,181 baris data yang siap untuk digunakan dalam model.
+
+### 2. Split Dataset
+Membagi dataset menjadi data latih (train) dan data uji (test) merupakan hal yang harus kita lakukan sebelum membuat model. proporsi pembagian data latih dan uji adalah 80:20. Proporsi tersebut cukup ideal untuk model dengan jumlah data 4181. Namun, jika memiliki dataset berukuran besar, kita perlu memikirkan strategi pembagian dataset lain agar proporsi data uji tidak terlalu banyak.  Pembagian ini menggunakan fungsi train_test_split dari sklearn hasil yang diperoleh berikut:
+
+<!-- ![image](https://github.com/user-attachments/assets/ffb5e6c8-e3e0-4184-a618-c18ea520ba11) -->
+
+<img src="https://github.com/user-attachments/assets/ffb5e6c8-e3e0-4184-a618-c18ea520ba11" alt="image" width="300"/>
+
+## Modeling
