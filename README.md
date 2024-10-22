@@ -330,10 +330,10 @@ mrg_df['volume_shifted'] = mrg_df['volume'].shift(5)
 mrg_df['marketcap_shifted'] = mrg_df['marketcap'].shift(5)
 ```
 
-Pemunduran fitur ini penting untuk mencegah kebocoran data, di mana model dapat "melihat" informasi dari masa depan yang seharusnya belum tersedia. Pendekatan ini sesuai dengan prinsip dalam analisis time series, di mana variabel input (fitur) harus mencerminkan periode waktu sebelum variabel target. Setelah dilakukan pemunduran data dan menghapus nilai null, kini terdapat total 4,181 baris data yang siap untuk digunakan dalam model.
+Pemunduran fitur ini penting untuk mencegah kebocoran data, di mana model dapat "melihat" informasi dari masa depan yang seharusnya belum tersedia. Pendekatan ini sesuai dengan prinsip dalam analisis time series, di mana variabel input (fitur) harus mencerminkan periode waktu sebelum variabel target. Setelah dilakukan pemunduran data dan menghapus nilai null, kini terdapat total 4.181 baris data yang siap untuk digunakan dalam model.
 
 ### 2. Split Dataset
-Membagi dataset menjadi data latih (train) dan data uji (test) merupakan hal yang harus kita lakukan sebelum membuat model. proporsi pembagian data latih dan uji adalah 80:20. Proporsi tersebut cukup ideal untuk model dengan jumlah data 4181. Namun, jika memiliki dataset berukuran besar, kita perlu memikirkan strategi pembagian dataset lain agar proporsi data uji tidak terlalu banyak.  Pembagian ini menggunakan fungsi train_test_split dari sklearn hasil yang diperoleh berikut:
+Membagi dataset menjadi data latih (train) dan data uji (test) merupakan hal yang harus kita lakukan sebelum membuat model. proporsi pembagian data latih dan uji adalah 80:20. Proporsi tersebut cukup ideal untuk model dengan jumlah data 4.181. Namun, jika memiliki dataset berukuran besar, kita perlu memikirkan strategi pembagian dataset lain agar proporsi data uji tidak terlalu banyak.  Pembagian ini menggunakan fungsi train_test_split dari sklearn hasil yang diperoleh berikut:
 
 <!-- ![image](https://github.com/user-attachments/assets/ffb5e6c8-e3e0-4184-a618-c18ea520ba11) -->
 
@@ -401,7 +401,7 @@ Dari pelatihan model baseline, didapatka hasil sebagai berikut:
 
 Dari informasi di atas, didapatkan Mean Squared Error (MSE) sebesar 6.978.760.79 dan Mean Absolute Error (MAE) sebesar 1.242.54, yang menggambarkan tingkat kesalahan prediksi dalam model ini. MSE mengukur rata-rata kuadrat dari kesalahan prediksi, sehingga lebih sensitif terhadap outlier. Sementara itu, MAE memberikan rata-rata kesalahan absolut antara nilai prediksi dan nilai sebenarnya, yang lebih mudah diinterpretasikan karena menggunakan satuan yang sama dengan target, yaitu harga BTC.
 
-Dengan MAE sebesar 1,242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1,242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
+Dengan MAE sebesar 1.242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1,242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
 
 Namun, MSE yang lebih tinggi menunjukkan adanya outlier atau prediksi dengan kesalahan yang lebih besar. Untuk meningkatkan akurasi model dan mengurangi kesalahan prediksi, langkah selanjutnya adalah melakukan hyperparameter tuning. 
 
@@ -432,11 +432,11 @@ Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah 
 ### Perbandingan Performa Setelah dan Sebelum Hyperparameter Tuning
 <img src="https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc" alt="image" width="300"/>
 
-Pada tahap awal, model dilatih tanpa melakukan hyperparameter tuning, menghasilkan nilai Mean Squared Error (MSE) sebesar 6.978.760,79 dan Mean Absolute Error (MAE) sebesar 1.242,54. Hasil ini menunjukkan bahwa model sudah cukup baik dalam memprediksi harga, namun masih terdapat ruang untuk perbaikan dalam hal akurasi prediksi.
+Pada tahap awal, model dilatih tanpa melakukan hyperparameter tuning, menghasilkan nilai Mean Squared Error (MSE) sebesar 6.978.760.79 dan Mean Absolute Error (MAE) sebesar 1.242.54. Hasil ini menunjukkan bahwa model sudah cukup baik dalam memprediksi harga, namun masih terdapat ruang untuk perbaikan dalam hal akurasi prediksi.
 
 <img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
 
-Setelah melakukan tuning, model mengalami peningkatan performa dengan MSE menurun menjadi 6.450.337,21 dan MAE turun menjadi 1.222,15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
+Setelah melakukan tuning, model mengalami peningkatan performa dengan MSE menurun menjadi 6.450.337,21 dan MAE turun menjadi 1.222.15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
 
 MSE yang lebih rendah mengindikasikan bahwa rata-rata kesalahan kuadrat dari prediksi model telah menurun, mengurangi dampak outlier. Hal ini penting dalam prediksi harga BTC karena mengurangi kesalahan prediksi yang ekstrem, yang sebelumnya berdampak signifikan pada hasil keseluruhan.
 
@@ -459,9 +459,9 @@ Selanjutnya, akan diprediksi harga Bitcoin untuk lima hari ke depan, suatu hal y
 
 <img src="https://github.com/user-attachments/assets/bede56a3-b173-4caa-ab4f-0eb7ca9af10d" alt="image" width="300"/>
 
-Berdasarkan model XGBoost yang telah dituning, prediksi harga Bitcoin untuk periode 20 hingga 24 Oktober 2024 menunjukkan fluktuasi harga yang bervariasi. Pada tanggal 20 Oktober, harga diperkirakan mencapai sekitar $66,115, yang kemudian mengalami kenaikan menjadi $67,201 pada tanggal 21 Oktober. Namun, harga mengalami penurunan pada tanggal 22 Oktober, dengan prediksi sekitar $64,347.
+Berdasarkan model XGBoost yang telah dituning, prediksi harga Bitcoin untuk periode 20 hingga 24 Oktober 2024 menunjukkan fluktuasi harga yang bervariasi. Pada tanggal 20 Oktober, harga diperkirakan mencapai sekitar $66.115, yang kemudian mengalami kenaikan menjadi $67.201 pada tanggal 21 Oktober. Namun, harga mengalami penurunan pada tanggal 22 Oktober, dengan prediksi sekitar $64.347.
 
-Prediksi kembali menunjukkan tren pemulihan pada tanggal 23 Oktober, dengan estimasi harga $66,573, sebelum mengalami penurunan lagi menjadi $61,313 pada tanggal 24 Oktober. Fluktuasi harga ini mencerminkan dinamika pasar yang mungkin dipengaruhi oleh faktor eksternal, seperti berita industri atau perubahan sentimen pasar.
+Prediksi kembali menunjukkan tren pemulihan pada tanggal 23 Oktober, dengan estimasi harga $66.573, sebelum mengalami penurunan lagi menjadi $61.313 pada tanggal 24 Oktober. Fluktuasi harga ini mencerminkan dinamika pasar yang mungkin dipengaruhi oleh faktor eksternal, seperti berita industri atau perubahan sentimen pasar.
 
 Secara keseluruhan, hasil prediksi ini memberikan insight penting bagi investor dan trader untuk merencanakan strategi perdagangan mereka berdasarkan proyeksi harga Bitcoin dalam jangka pendek.
 
