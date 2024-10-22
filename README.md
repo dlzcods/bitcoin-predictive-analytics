@@ -49,7 +49,7 @@ Berdasarkan kondisi yang telah diuraikan sebelumnya, proyek ini akan mengembangk
 - Kapitalisasi Pasar: Kapitalisasi pasar adalah nilai total dari semua Bitcoin yang beredar di pasar. Ini memberikan gambaran tentang seberapa besar pasar Bitcoin pada saat tertentu dan seberapa besar pengaruhnya terhadap fluktuasi harga. Kapitalisasi yang besar biasanya menunjukkan kestabilan, sedangkan kapitalisasi yang lebih kecil dapat berarti bahwa harga lebih rentan terhadap perubahan signifikan.
 
 Dengan menggunakan teknologi machine learning algoritma XGBoost dan hyperparameter tuning diharapkan dapat menjawab permasalahan berikut: 
-- Bagaimana cara memanfaatkan data historis harga BTC seperti harga pembukaan, harga penutupan, harga tertinggi, harga terendah, volume transaksi, dan kapitalisasi pasar untuk memprediksi harga BTC di masa depan?
+- Bagaimana cara memanfaatkan data historis harga Bitcoin seperti harga pembukaan, harga penutupan, harga tertinggi, harga terendah, volume transaksi, dan kapitalisasi pasar untuk memprediksi harganya di masa depan?
 - Bagaimana cara mengoptimalkan kinerja algoritma XGBoost untuk memprediksi harga Bitcoin melalui parameter-parameter penting seperti learning rate, max_depth, subsample, dan n_estimators?
 
 ### Goals
@@ -168,15 +168,17 @@ Untuk selanjutnya hasil penggabungan ini akan disebut sebagai dataset final.
 
 <img src="https://github.com/user-attachments/assets/a1b03191-0ae4-4fe7-8449-6ea8031f36f7" alt="image" width="570"/>
 
+Setelah proses merge selesai, selanjutnya dataset final akan digunakan untuk dianalisis dan pengembangan model.
 
 #### Analisis Tren Harga
+Pada bagian ini, kita akan menggali tren harga Bitcoin dengan tujuan untuk memahami pola pergerakannya dari waktu ke waktu. Dengan menganalisis data historis, kita dapat mengidentifikasi faktor-faktor yang mempengaruhi fluktuasi harga dan memberikan konteks yang lebih mendalam untuk prediksi yang dihasilkan oleh model.
 <!-- ![image](https://github.com/user-attachments/assets/38a9a029-c739-485b-8c64-05391bf9ae3d) -->
 
 <img src="https://github.com/user-attachments/assets/38a9a029-c739-485b-8c64-05391bf9ae3d" alt="image" width="680"/>
 
 Dari visualisasi di atas nampak beberapa informasi di antaranya:
 - Tren Keseluruhan: Terlihat adanya tren peningkatan harga Bitcoin secara umum selama periode tersebut.
-Volatilitas: Terdapat periode fluktuasi harga yang signifikan, menunjukkan volatilitas yang tinggi. Misalnya, peningkatan dan penurunan harga yang tajam dapat diamati pada rentang waktu tertentu, seperti di tahun 2021.
+- Volatilitas: Terdapat periode fluktuasi harga yang signifikan, menunjukkan volatilitas yang tinggi. Misalnya, peningkatan dan penurunan harga yang tajam dapat diamati pada rentang waktu tertentu, seperti di tahun 2021.
 - Hubungan antar harga: Harga pembukaan, penutupan, tertinggi, dan terendah cenderung bergerak bersama-sama, yang mengindikasikan adanya korelasi antara berbagai aspek aktivitas harga harian Bitcoin.
 
 #### Analisis Volatilitas Perubahan Harga
@@ -438,7 +440,7 @@ Setelah melakukan tuning, model mengalami peningkatan performa dengan MSE menuru
 
 MSE yang lebih rendah mengindikasikan bahwa rata-rata kesalahan kuadrat dari prediksi model telah menurun, mengurangi dampak outlier. Hal ini penting dalam prediksi harga BTC karena mengurangi kesalahan prediksi yang ekstrem, yang sebelumnya berdampak signifikan pada hasil keseluruhan.
 
-MAE yang juga lebih kecil, turun ke 1.222.15, menunjukkan peningkatan akurasi prediksi dengan rata-rata kesalahan sekitar 1.222 USD. Dalam konteks volatilitas BTC, kesalahan ini lebih terkontrol, menunjukkan bahwa model mampu menangkap pola harga dengan lebih akurat setelah tuning, menghasilkan prediksi yang lebih mendekati nilai aktual.
+MAE yang juga lebih kecil, turun ke 1.222.15, menunjukkan peningkatan akurasi prediksi dengan rata-rata kesalahan sekitar 1.222 USD. Dalam konteks volatilitas Bitcoin, kesalahan ini lebih terkontrol, menunjukkan bahwa model mampu menangkap pola harga dengan lebih akurat setelah tuning, menghasilkan prediksi yang lebih mendekati nilai aktual.
 
 ### Harga Aktual vs Prediksi
 Dalam analisis ini, kita akan membandingkan harga aktual Bitcoin dengan harga yang diprediksi oleh model XGBoost melalui visualisasi scatterplot. Visualisasi ini tidak hanya memungkinkan kita untuk melihat sejauh mana prediksi model sejalan dengan data aktual, tetapi juga membantu kita mengidentifikasi pola dan outlier yang mungkin ada.
