@@ -420,8 +420,49 @@ Selanjutnya ditentukkan kandidat untuk memilih parameter terbaik dengan ketentua
 Kemudian dengan menggunakan GridSearchCV Scikit-Learn untuk mencari parameter yang dilakukan secara brute force dan melaporkan mana parameter yang memiliki akurasi paling baik. Setelah dilakukan proses pencarian parameter yang optimal menggunakan GridSearch diperoleh parameter nilai learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0 yang akan digunakan untuk melakukan fit model yang diperoleh hasil berikut :
 <!-- ![image](https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2) -->
 
-<img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="300"/>
+<img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
 
 Nilai akurasi model meningkat setelah diterapkan hyperparameter tuning dengan perolehan nilai Mean Squared Error: 6.450.337.21 dan Mean Absolute Error: 1.222.15. Tentunya performa model lebih baik jika dibandingkan dengan akurasi sebelum dilakukan tuning.
 
 ## Evaluation
+Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah Mean Absolute Error (MAE) dan Mean Square Error (MSE), di mana idealnya nilai MAE dan MSE yang rendah akan menunjukkan bahwa model mampu memprediksi harga Bitcoin dengan akurasi yang tinggi. MAE yang mendekati nol menunjukkan bahwa rata-rata kesalahan prediksi berada pada tingkat yang dapat diterima, sedangkan MSE yang rendah menandakan bahwa kesalahan kuadrat dari prediksi juga minimal, sehingga mengurangi pengaruh outlier yang mungkin ada dalam data.
+
+### Perbandingan Performa Setelah dan Sebelum Hyperparameter Tuning
+<img src="https://github.com/user-attachments/assets/568c7f26-cac8-4a9b-a84a-5b74430c15dc" alt="image" width="300"/>
+
+Pada tahap awal, model dilatih tanpa melakukan hyperparameter tuning, menghasilkan nilai Mean Squared Error (MSE) sebesar 6.978.760,79 dan Mean Absolute Error (MAE) sebesar 1.242,54. Hasil ini menunjukkan bahwa model sudah cukup baik dalam memprediksi harga, namun masih terdapat ruang untuk perbaikan dalam hal akurasi prediksi.
+
+<img src="https://github.com/user-attachments/assets/fd3af31b-485a-4596-9e4f-b1758e7a04d2" alt="image" width="350"/>
+
+Setelah melakukan tuning, model mengalami peningkatan performa dengan MSE menurun menjadi 6.450.337,21 dan MAE turun menjadi 1.222,15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
+
+MSE yang lebih rendah mengindikasikan bahwa rata-rata kesalahan kuadrat dari prediksi model telah menurun, mengurangi dampak outlier. Hal ini penting dalam prediksi harga BTC karena mengurangi kesalahan prediksi yang ekstrem, yang sebelumnya berdampak signifikan pada hasil keseluruhan.
+
+MAE yang juga lebih kecil, turun ke 1.222.15, menunjukkan peningkatan akurasi prediksi dengan rata-rata kesalahan sekitar 1.222 USD. Dalam konteks volatilitas BTC, kesalahan ini lebih terkontrol, menunjukkan bahwa model mampu menangkap pola harga dengan lebih akurat setelah tuning, menghasilkan prediksi yang lebih mendekati nilai aktual.
+
+### Harga Aktual vs Prediksi
+Dalam analisis ini, kita akan membandingkan harga aktual Bitcoin dengan harga yang diprediksi oleh model XGBoost melalui visualisasi scatterplot. Visualisasi ini tidak hanya memungkinkan kita untuk melihat sejauh mana prediksi model sejalan dengan data aktual, tetapi juga membantu kita mengidentifikasi pola dan outlier yang mungkin ada.
+
+<!-- ![image](https://github.com/user-attachments/assets/1ff9d957-6f01-4a93-a65b-b18d685ff770) -->
+
+<img src="https://github.com/user-attachments/assets/1ff9d957-6f01-4a93-a65b-b18d685ff770" alt="image" width="680"/>
+
+Dari visualiasi di atas didapatkan informasi sebagai berikut:
+- Meskipun ada beberapa titik data yang melenceng dari garis ideal, tetapi secara keseluruhan sebaran titik-titik pada grafik harga aktual vs harga prediksi menunjukkan bahwa prediksi model XGBoost cukup akurat dan mengikuti tren harga aktual dengan baik.
+- Namun, perlu diingat bahwa model tetap memiliki keterbatasan dan prediksi harga Bitcoin di dunia nyata dipengaruhi oleh banyak faktor kompleks yang mungkin tidak sepenuhnya tercakup dalam model, seperti sentimen pasar, regulasi pemerintah, dan berita terkait Bitcoin.
+
+### Prediksi Harga 5 Hari ke Depan
+Selanjutnya, akan diprediksi harga Bitcoin untuk lima hari ke depan, suatu hal yang menjadi salah satu tujuan utama dalam pembuatan model ini. Karena baris data terakhir berada di tanggal 19 Oktober 2024, maka hasil prediksi akan berada di tanggal 20-24 Oktober 2024.
+<!-- ![image](https://github.com/user-attachments/assets/bede56a3-b173-4caa-ab4f-0eb7ca9af10d) -->
+
+<img src="https://github.com/user-attachments/assets/bede56a3-b173-4caa-ab4f-0eb7ca9af10d" alt="image" width="300"/>
+
+Berdasarkan model XGBoost yang telah dituning, prediksi harga Bitcoin untuk periode 20 hingga 24 Oktober 2024 menunjukkan fluktuasi harga yang bervariasi. Pada tanggal 20 Oktober, harga diperkirakan mencapai sekitar $66,115, yang kemudian mengalami kenaikan menjadi $67,201 pada tanggal 21 Oktober. Namun, harga mengalami penurunan pada tanggal 22 Oktober, dengan prediksi sekitar $64,347.
+
+Prediksi kembali menunjukkan tren pemulihan pada tanggal 23 Oktober, dengan estimasi harga $66,573, sebelum mengalami penurunan lagi menjadi $61,313 pada tanggal 24 Oktober. Fluktuasi harga ini mencerminkan dinamika pasar yang mungkin dipengaruhi oleh faktor eksternal, seperti berita industri atau perubahan sentimen pasar.
+
+Secara keseluruhan, hasil prediksi ini memberikan insight penting bagi investor dan trader untuk merencanakan strategi perdagangan mereka berdasarkan proyeksi harga Bitcoin dalam jangka pendek.
+
+## References
+1. 
+
