@@ -169,13 +169,115 @@ Untuk selanjutnya hasil penggabungan ini akan disebut sebagai dataset final.
 <img src="https://github.com/user-attachments/assets/a1b03191-0ae4-4fe7-8449-6ea8031f36f7" alt="image" width="570"/>
 
 
+#### Analisis Tren Harga
+<!-- ![image](https://github.com/user-attachments/assets/38a9a029-c739-485b-8c64-05391bf9ae3d) -->
+
+<img src="https://github.com/user-attachments/assets/38a9a029-c739-485b-8c64-05391bf9ae3d" alt="image" width="680"/>
+
+Dari visualisasi di atas nampak beberapa informasi di antaranya:
+- Tren Keseluruhan: Terlihat adanya tren peningkatan harga Bitcoin secara umum selama periode tersebut.
+Volatilitas: Terdapat periode fluktuasi harga yang signifikan, menunjukkan volatilitas yang tinggi. Misalnya, peningkatan dan penurunan harga yang tajam dapat diamati pada rentang waktu tertentu, seperti di tahun 2021.
+- Hubungan antar harga: Harga pembukaan, penutupan, tertinggi, dan terendah cenderung bergerak bersama-sama, yang mengindikasikan adanya korelasi antara berbagai aspek aktivitas harga harian Bitcoin.
+
+#### Analisis Volatilitas Perubahan Harga
+Volatilitas adalah ukuran statistik yang menggambarkan tingkat perubahan atau fluktuasi harga suatu aset dalam periode waktu tertentu. Dalam konteks Bitcoin, volatilitas sering digunakan untuk mengukur risiko atau ketidakstabilan harga dari waktu ke waktu.
+
+Untuk menghitung volatilitas harga Bitcoin, berikut langkah-langkahnya:
+
+1. Perubahan Persentase Harga (Return): Perubahan harga harian dihitung menggunakan percentage change atau persentase perubahan harga penutupan dari satu hari ke hari berikutnya:
+   ```math
+    {P_t} = \frac{C_t - C_{t-1}}{C_{t-1}}
+    ```
+
+   Di mana:
+   ```math
+   \begin{aligned}
+    P_t & = \text{Return harian pada hari } t, \; \textit{persentase perubahan harga penutupan.}\\
+    C_t & = \text{Harga penutupan pada hari } t, \; \textit{harga Bitcoin di akhir hari perdagangan.}\\
+    C_{t-1} & = \text{Harga penutupan pada hari } t-1, \; \textit{harga Bitcoin di akhir hari sebelumnya.}
+   \end{aligned}
+   ```
+   
+   
+2. Standar Deviasi dari Return: Untuk mengukur volatilitas, diperlukan menghitung standar deviasi dari return harian. Standar deviasi mengukur seberapa jauh perubahan harga harian bervariasi dari nilai rata-ratanya. Semakin besar standar deviasi, semakin tinggi volatilitas harga Bitcoin.
+    ```math
+    {\sigma} = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (R_i - \bar{R})^2}
+    ```
+
+   Di mana:
+   ```math
+   \begin{aligned}
+   {\sigma} & = \text{Standar deviasi dari return, mengukur volatilitas harga.}\\
+   N & = \text{Jumlah total observasi return (hari).}\\
+   R_i & = \text{Return harian pada hari ke-} i, \; \text{perubahan persentase harga.}\\
+   \bar{R} & = \text{Rata-rata return harian, memberikan nilai tengah dari semua return.}
+   \end{aligned}
+   ```
+  
+3. Penyesuaian ke Periode Tertentu (Misalnya Mingguan, Bulanan): Untuk mengukur volatilitas dalam rentang waktu tertentu, misalnya mingguan atau bulanan, standar deviasi harian disesuaikan dengan mengalikan akar kuadrat dari jumlah hari dalam periode tersebut:
+   ```math
+    \text{Volatilitas Periodik} = \sigma \times \sqrt{T}
+    ```
+
+   Di mana:
+   ```math
+   \begin{aligned}
+     \text{Volatilitas Periodik} & = \text{Mengukur volatilitas dalam periode tertentu (mingguan, bulanan).}\\
+    \sigma & = \text{Standar deviasi dari return harian, menggambarkan volatilitas harian.}\\
+    T & = \text{Jumlah hari dalam periode yang dianalisis (contoh: 7 untuk mingguan, 30 untuk bulanan).}
+   \end{aligned}
+   ```
+
+##### Volatilitas Jangka Pendek (7 Hari)
+<!-- ![image](https://github.com/user-attachments/assets/39eefb2e-988f-4b9c-8330-07218ab0a0a6) -->
+
+<img src="https://github.com/user-attachments/assets/39eefb2e-988f-4b9c-8330-07218ab0a0a6" alt="image" width="680"/>
+
+##### Volatilitas Jangka Menengah (30 Hari)
+<!-- ![image](https://github.com/user-attachments/assets/7e57deb6-3da2-4287-8b82-fbbe702134ff) -->
+
+<img src="https://github.com/user-attachments/assets/7e57deb6-3da2-4287-8b82-fbbe702134ff" alt="image" width="680"/>
+
+##### Volatilitas Jangka Panjang (90 Hari)
+<!-- ![image](https://github.com/user-attachments/assets/67b10d59-0271-4d61-af0b-354e7fb410c3) -->
+
+<img src="https://github.com/user-attachments/assets/67b10d59-0271-4d61-af0b-354e7fb410c3" alt="image" width="680"/>
+<br>
+
+Dari ketiga visualisasi tingkat volatilitas harga Bitcoin tersebut didapatkan beberapa informasi di antaranya:
+- Volatilitas Tinggi pada 2013-2014 dan 2017-2018: Terlihat lonjakan volatilitas yang signifikan pada periode tersebut, mengindikasikan fluktuasi harga Bitcoin yang besar. Periode tersebut bertepatan dengan bubble dan koreksi harga Bitcoin
+- Volatilitas Menurun seiring Waktu: Secara umum, volatilitas Bitcoin cenderung menurun seiring waktu, meskipun masih terdapat periode dengan volatilitas tinggi
+- Volatilitas Jangka Panjang lebih Stabil: Volatilitas 90 hari (jangka panjang) cenderung lebih stabil dibandingkan dengan volatilitas mingguan dan bulanan. Hal ini menunjukkan bahwa fluktuasi harga Bitcoin cenderung mereda dalam jangka waktu yang lebih panjang
 
 
+#### Rata-Rata Pergerakan Harga
+Rata-rata Pergerakan Sederhana (Simple Moving Average - SMA) adalah metode perataan data harga dalam periode waktu tertentu untuk membantu mengidentifikasi tren dalam harga aset, seperti Bitcoin.
 
+Perhitungan SMA dilakukan dengan cara mengambil rata-rata harga penutupan aset selama sejumlah hari tertentu, kemudian menggeser (rolling) jendela waktu tersebut setiap harinya untuk mendapatkan nilai SMA terbaru. Dengan cara ini, fluktuasi harga harian dapat dihaluskan sehingga tren harga lebih mudah dianalisis.
 
+```math
+\text{SMA}n = \frac{C_t + C{t-1} + C_{t-2} + \dots + C_{t-n+1}}{n} 
+```
 
+Di mana:
+```math
+\begin{aligned}
+\text{SMA}_n & = \text{Simple Moving Average untuk periode } n \text{ hari.} \\[10pt] 
+C_t & = \text{Harga penutupan pada hari ke-} t.\\[10pt] 
+n & = \text{Jumlah hari dalam periode perhitungan SMA.}
+\end{aligned}
+```
 
+<br>
 
+Untuk SMA jangka pendek - menengah akan digunakan periode 50 hari, sedangkan untuk jangka panjang akan digunakan periode 200 hari.
 
+***Mengapa 50 dan 200 Hari?***
 
+- SMA-50 sering digunakan untuk mengukur tren jangka pendek hingga menengah. Periode 50 hari dianggap cukup untuk menunjukkan fluktuasi harga terbaru tanpa terlalu banyak "noise" dari pergerakan harga harian
+- SMA-200 adalah indikator yang lebih umum digunakan untuk melihat tren jangka panjang. Periode ini cukup panjang untuk memberikan gambaran stabil tentang pergerakan harga dan menghilangkan fluktuasi harian yang tidak signifikan
 
+<!-- ![image](https://github.com/user-attachments/assets/ffdc757a-7579-4862-ac04-5b4f40018d34) -->
+<br>
+
+<img src="https://github.com/user-attachments/assets/ffdc757a-7579-4862-ac04-5b4f40018d34" alt="image" width="680"/>
