@@ -461,6 +461,79 @@ Pada tahap ini menggunakan algoritma machine learning XGBoost dengan menerapkan 
 
 Model yang sudah dilatih akan dievaluasi dengan metrik MAE dan MSE.
 <br>
+"""
+
+# Normalisasi fitur
+scaler_X = MinMaxScaler()
+X_train_scaled = scaler_X.fit_transform(X_train)
+X_test_scaled = scaler_X.transform(X_test)
+
+# Normalisasi variabel target
+scaler_y = MinMaxScaler()
+y_train_scaled = scaler_y.fit_transform(y_train.values.reshape(-1, 1))
+y_test_scaled = scaler_y.transform(y_test.values.reshape(-1, 1))
+
+xgb_model = xgb.XGBRegressor()
+xgb_model.fit(X_train_scaled, y_train_scaled)
+
+y_xgb_pred_scaled = xgb_model.predict(X_test_scaled)
+
+y_xgb_pred = scaler_y.inverse_transform(y_xgb_pred_scaled.reshape(-1, 1))
+
+xgb_mse = mean_squared_error(y_test, y_xgb_pred)
+xgb_mae = mean_absolute_error(y_test, y_xgb_pred)
+
+print(f'Mean Squared Error: {xgb_mse:.2f}')
+print(f'Mean Absolute Error: {xgb_mae:.2f}')
+
+"""Dari informasi di atas, didapatkan Mean Squared Error (MSE) sebesar 6.978.760.79 dan Mean Absolute Error (MAE) sebesar 1.242.54, yang menggambarkan tingkat kesalahan prediksi dalam model ini. Dengan MAE sebesar 1.242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1.242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
+
+Namun, MSE yang lebih tinggi menunjukkan adanya outlier atau prediksi dengan kesalahan yang lebih besar. Untuk meningkatkan akurasi model dan mengurangi kesalahan prediksi, langkah selanjutnya adalah melakukan hyperparameter tuning.
+
+### Hyperparameter Tuning
+
+Hyperparameter tuning adalah sebuah proses untuk melakukan optimalisasi parameter pada sebuah model. Untuk proyek ini Parameter yang di gunakan ada 4 yaitu :
+
+- learning_rate: Mengontrol tingkat di mana model belajar dari setiap iterasi. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat memperlambat konvergensi.
+- max_depth: Mengontrol kedalaman maksimum pohon keputusan. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat menghambat kemampuan model untuk menangkap pola yang kompleks.
+- subsample: Mengontrol proporsi data yang digunakan untuk membangun setiap pohon keputusan. Subsampling dapat membantu mengurangi overfitting.
+- n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
+
+Proses hyperparameter tuning akan dilakukan menggunakan teknik Grid Search yang bertujuan untuk melakukan validasi untuk lebih dari satu model dan hyperparameter masing-masing secara otomatis dan sistematis.
+"""
+
+param_grid = {
+    'max_depth': [3, 5, 7],
+    'learning_rate': [0.01, 0.1, 0.2],
+    'n_estimators': [100, 200, 300],
+    'subsample': [0.8, 1.0]
+}
+
+grid_search = GridSearchCV(estimator=xgb.XGBRegressor(), param_grid=param_grid, cv=5, scoring='neg_mean_squared_error')
+grid_search.fit(X_train_scaled, y_train_scaled)
+
+best_params = grid_search.best_params_
+print(f'Best Parameters: {best_params}')
+
+"""Berdasarkan informasi di atas, algoritma XGBoost memperoleh parameter terbaik yaitu learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0"""
+
+xgb_best_model = xgb.XGBRegressor(**best_params)
+xgb_best_model.fit(X_train_scaled, y_train_scaled)
+
+y_best_pred_scaled = xgb_best_model.predict(X_test_scaled)
+
+y_best_pred = scaler_y.inverse_transform(y_best_pred_scaled.reshape(-1, 1))
+best_mse= mean_squared_error(y_test, y_best_pred)
+best_mae= mean_absolute_error(y_test, y_best_pred)
+
+print(f'Mean Squared Error (tuning): {best_mse:.2f}')
+print(f'Mean Absolute Error (tuning): {best_mae:.2f}')
+
+"""Nilai akurasi model meningkat setelah diterapkan hyperparameter tuning dengan perolehan nilai Mean Squared Error: 6.450.337.21 dan Mean Absolute Error: 1.222.15. Tentunya performa model lebih baik jika dibandingkan dengan akurasi sebelum dilakukan tuning.
+
+## 6. Model Evaluation
+Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah Mean Absolute Error (MAE) dan Mean Square Error (MSE).
+
 **Kenapa MAE dan MSE?**
 <br>
 MAE dan MSE adalah dua metrik yang umum digunakan untuk mengukur kinerja model regresi, termasuk model XGBoost. Keduanya mengukur seberapa jauh prediksi model dari nilai sebenarnya, namun dengan cara yang sedikit berbeda.
@@ -506,84 +579,6 @@ MAE dan MSE adalah dua metrik yang umum digunakan untuk mengukur kinerja model r
   y_i & = \text{Nilai aktual ke-} i \\[10pt]
   \hat{y}_i & = \text{Nilai prediksi ke-} i
   \end{aligned}
-"""
-
-# Normalisasi fitur
-scaler_X = MinMaxScaler()
-X_train_scaled = scaler_X.fit_transform(X_train)
-X_test_scaled = scaler_X.transform(X_test)
-
-# Normalisasi variabel target
-scaler_y = MinMaxScaler()
-y_train_scaled = scaler_y.fit_transform(y_train.values.reshape(-1, 1))
-y_test_scaled = scaler_y.transform(y_test.values.reshape(-1, 1))
-
-xgb_model = xgb.XGBRegressor()
-xgb_model.fit(X_train_scaled, y_train_scaled)
-
-y_xgb_pred_scaled = xgb_model.predict(X_test_scaled)
-
-y_xgb_pred = scaler_y.inverse_transform(y_xgb_pred_scaled.reshape(-1, 1))
-
-xgb_mse = mean_squared_error(y_test, y_xgb_pred)
-xgb_mae = mean_absolute_error(y_test, y_xgb_pred)
-
-print(f'Mean Squared Error: {xgb_mse:.2f}')
-print(f'Mean Absolute Error: {xgb_mae:.2f}')
-
-"""Dari informasi di atas, didapatkan Mean Squared Error (MSE) sebesar 6,978,760.79 dan Mean Absolute Error (MAE) sebesar 1,242.54 menggambarkan tingkat kesalahan prediksi dalam model ini. MSE mengukur rata-rata kuadrat dari kesalahan prediksi, sehingga lebih sensitif terhadap outlier. Sementara itu, MAE memberikan rata-rata kesalahan absolut antara nilai prediksi dan nilai sebenarnya, yang lebih mudah diinterpretasikan karena menggunakan satuan yang sama dengan target, yaitu harga BTC.
-
-Dengan MAE sebesar 1,242.54, ini berarti rata-rata prediksi harga Bitcoin meleset sekitar 1,242 USD dari harga sebenarnya. Mengingat volatilitas harga Bitcoin yang tinggi, kesalahan ini masih dalam batas wajar, terutama jika mempertimbangkan bahwa fluktuasi harga BTC bisa mencapai ribuan dolar dalam satu hari.
-
-Namun, MSE yang lebih tinggi menunjukkan adanya outlier atau prediksi dengan kesalahan yang lebih besar. Meskipun demikian, tingkat kesalahan ini masih bisa diterima dalam konteks prediksi harga aset kripto yang sangat volatil, di mana model masih mampu memberikan gambaran yang cukup akurat tentang tren harga.
-
-### Hyperparameter Tuning
-
-Hyperparameter tuning adalah sebuah proses untuk melakukan optimalisasi parameter pada sebuah model. Untuk proyek ini Parameter yang di gunakan ada 4 yaitu :
-
-- learning_rate: Mengontrol tingkat di mana model belajar dari setiap iterasi. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat memperlambat konvergensi.
-- max_depth: Mengontrol kedalaman maksimum pohon keputusan. Nilai yang terlalu besar dapat menyebabkan overfitting, sedangkan nilai yang terlalu kecil dapat menghambat kemampuan model untuk menangkap pola yang kompleks.
-- subsample: Mengontrol proporsi data yang digunakan untuk membangun setiap pohon keputusan. Subsampling dapat membantu mengurangi overfitting.
-- n_estimators: Menentukan jumlah pohon keputusan yang akan dibangun. Jumlah pohon yang terlalu sedikit dapat menyebabkan underfitting, sedangkan jumlah pohon yang terlalu banyak dapat menyebabkan overfitting.
-
-Proses hyperparameter tuning akan dilakukan menggunakan teknik Grid Search yang bertujuan untuk melakukan validasi untuk lebih dari satu model dan hyperparameter masing-masing secara otomatis dan sistematis.
-"""
-
-param_grid = {
-    'max_depth': [3, 5, 7],
-    'learning_rate': [0.01, 0.1, 0.2],
-    'n_estimators': [100, 200, 300],
-    'subsample': [0.8, 1.0]
-}
-
-grid_search = GridSearchCV(estimator=xgb.XGBRegressor(), param_grid=param_grid, cv=5, scoring='neg_mean_squared_error')
-grid_search.fit(X_train_scaled, y_train_scaled)
-
-best_params = grid_search.best_params_
-print(f'Best Parameters: {best_params}')
-
-"""Berdasarkan informasi di atas, algoritma XGBoost memperoleh parameter terbaik yaitu learning_rate = 0.1, max_depth = 5, n_estimators = 100, dan subsample = 1.0"""
-
-xgb_best_model = xgb.XGBRegressor(**best_params)
-xgb_best_model.fit(X_train_scaled, y_train_scaled)
-
-y_best_pred_scaled = xgb_best_model.predict(X_test_scaled)
-
-y_best_pred = scaler_y.inverse_transform(y_best_pred_scaled.reshape(-1, 1))
-best_mse= mean_squared_error(y_test, y_best_pred)
-best_mae= mean_absolute_error(y_test, y_best_pred)
-
-print(f'Mean Squared Error (tuning): {best_mse:.2f}')
-print(f'Mean Absolute Error (tuning): {best_mae:.2f}')
-
-"""Berkaca dari informasi di atas menunjukkan peningkatan performa model dengan Mean Squared Error (MSE) sebesar 6,450,337.21 dan Mean Absolute Error (MAE) sebesar 1,222.15. Penurunan nilai MSE dan MAE ini menandakan bahwa model berhasil lebih baik dalam memprediksi harga Bitcoin setelah dilakukan penyesuaian parameter.
-
-MSE yang lebih rendah mengindikasikan bahwa rata-rata kesalahan kuadrat dari prediksi model telah menurun, mengurangi dampak outlier. Hal ini penting dalam prediksi harga BTC karena mengurangi kesalahan prediksi yang ekstrem, yang sebelumnya berdampak signifikan pada hasil keseluruhan.
-
-MAE yang juga lebih kecil, turun ke 1,222.15, menunjukkan peningkatan akurasi prediksi dengan rata-rata kesalahan sekitar 1,222 USD. Dalam konteks volatilitas BTC, kesalahan ini lebih terkontrol, menunjukkan bahwa model mampu menangkap pola harga dengan lebih akurat setelah tuning, menghasilkan prediksi yang lebih mendekati nilai aktual.
-
-## 6. Model Evaluation
-Seperti yang telah dijelaskan sebelumnya, metrik evaluasi yang digunakan adalah Mean Absolute Error (MAE) dan Mean Square Error (MSE). Di mana idealnya
 
 ### Perbandingan Performa dengan Baseline
 """
